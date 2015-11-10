@@ -57,7 +57,7 @@ Map.prototype.loadMap = function() {
     }
 
     for(var i = 0; i < content.elements.length; i++) {
-        this.elements.push(new Element(content.elements[i].x, content.elements[i].y, content.elements[i].width, content.elements[i].height, content.elements[i].blockId));
+        this.elements.push(new Element(content.elements[i].x, content.elements[i].y, content.elements[i].width, content.elements[i].height, content.elements[i].blockId, content.elements[i].collision));
     }
 };
 
@@ -86,5 +86,23 @@ Map.prototype.drawElements = function(context) {
 };
 
 Map.prototype.detectCollision = function(x, y) {
+    console.log(x, y);
 
+    /*
+    for(var i = 0; i < this.elements.length; i++) {
+        var element = this.elements[i];
+
+        if((x - 2) < ((element.x * this.blockSize) + (element.width * this.blockSize)) && y > element.y && y < ((element.y * this.blockSize) + (element.width * this.blockSize)) && element.collision.is) {
+            console.log('left collision');
+        }
+    }
+    */
+
+    var element = this.elements[1];
+
+    //console.log((x-2), ((element.x * this.blockSize) + (element.width * this.blockSize)), element.collision.is);
+
+    if((x - 2) < ((element.x * this.blockSize) + (element.width * this.blockSize)) && y > element.y && y < ((element.y * this.blockSize) + (element.width * this.blockSize)) && element.collision.is) {
+        //console.log('left collision');
+    }
 };

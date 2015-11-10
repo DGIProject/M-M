@@ -26,8 +26,8 @@ Car = function(x, y, orientation, blockSize, blockId) {
     this.y = y * blockSize;
     this.rotation = 0;
     this.orientation = orientation;
-    this.width = 1;
-    this.height = 2;
+    this.width = blockSize;
+    this.height = 2 * blockSize;
 
     this.blockId = blockId;
 
@@ -39,6 +39,9 @@ Car = function(x, y, orientation, blockSize, blockId) {
     this.isGo = CAR_GO.NONE;
     this.lastIsGo = CAR_GO.NONE;
 
+    this.minRotate = 3;
+    this.maxRotate = 4;
+
     this.isTurn = CAR_TURN.NONE;
 };
 
@@ -46,7 +49,7 @@ Car.prototype.drawElement = function(context, map) {
     context.save();
     context.translate(this.x, this.y);
     context.rotate(this.rotation * Math.PI / 180);
-    context.translate(-25, -75);
+    context.translate((-this.width / 2), (-0.7 * this.height));
     context.drawImage(
         document.getElementById(map.blocks[this.blockId].imgName),
         map.blocks[this.blockId].sx,
@@ -55,8 +58,8 @@ Car.prototype.drawElement = function(context, map) {
         map.blocks[this.blockId].sheight,
         0,
         0,
-        this.width * map.blockSize,
-        this.height * map.blockSize
+        this.width,
+        this.height
     );
 
     context.restore();
@@ -67,6 +70,8 @@ Car.prototype.drawElement = function(context, map) {
         this.goBack();
     else
         this.engineBrake();
+
+    map.detectCollision(this.x, (this.y - (0.7 * this.height)));
 };
 
 Car.prototype.go = function() {
@@ -127,10 +132,32 @@ Car.prototype.engineBrake = function() {
 };
 
 Car.prototype.turn = function() {
+    /*
     if(this.isTurn == CAR_TURN.LEFT) {
         this.rotation -= ((this.speedCar * 1.5) - ((this.currentSpeed < 0) ? -this.currentSpeed : this.currentSpeed)) * 0.8 * ((this.isGo == CAR_GO.NORMAL) ? 1 : -1);
     }
     else if(this.isTurn == CAR_TURN.RIGHT) {
-        this.rotation += ((this.speedCar * 1.5) - ((this.currentSpeed < 0) ? -this.currentSpeed : this.currentSpeed)) * 0.8 * ((this.isGo == CAR_GO.NORMAL) ? 1 : -1);
+        this.rotation += ((this.speedCar * 1.2) - ((this.currentSpeed < 0) ? -this.currentSpeed : this.currentSpeed)) * 0.8 * ((this.isGo == CAR_GO.NORMAL) ? 1 : -1);
     }
+
+    console.log('rotate : ' + ((this.speedCar * 1.5) - ((this.currentSpeed < 0) ? -this.currentSpeed : this.currentSpeed)));
+    */
+
+    var currentSpeed = (this.currentSpeed < 0) ? -this.currentSpeed : this.currentSpeed;
+
+    if(this.isTurn == CAR_TURN.LEFT) {
+        this.rotation -= currentSpeed.map(0, this.speedCar, this.minRotate, this.maxRotate) * ((this.isGo == CAR_GO.NORMAL) ? 1 : -1);
+    }
+    else if(this.isTurn == CAR_TURN.RIGHT) {
+        this.rotation += currentSpeed.map(0, this.speedCar, this.minRotate, this.maxRotate) * ((this.isGo == CAR_GO.NORMAL) ? 1 : -1);
+    }
+
+    if(this.rotation >= 360) {
+        this.rotation = 0;
+    }
+    else if(this.rotation <= 0) {
+        this.rotation = 359;
+    }
+
+    //console.log('rotate : ' + currentSpeed.map(0, this.speedCar, this.minRotate, this.maxRotate));
 };
