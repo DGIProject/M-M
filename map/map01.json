@@ -1,0 +1,21 @@
+{
+  "name": "map01",
+  "version": "1",
+  "car": {
+    "blockId": 2,
+    "orientation" : 2
+  },
+  "checkPoints": [
+    {"x": 5, "y": 6},
+    {"x": 10, "y": 4}
+  ],
+  "blocks": [
+    {"type": "block", "imgName": "road", "texture": "road.jpg", "sx": 0, "sy": 0, "swidth": 80, "sheight": 80},
+    {"type": "block", "imgName": "roadpage", "texture": "roadpage.png", "sx": 0, "sy": 0, "swidth": 50, "sheight": 100},
+    {"type": "item", "imgName": "car", "texture": "car.png", "sx": 0, "sy": 0, "swidth": 48, "sheight": 97}
+  ],
+  "elements": [
+    {"x": 0, "y": 0, "width": 1, "height": 1, "blockId": 0, "collision": {"is": false}},
+    {"x": 1, "y": 2, "width": 1, "height": 2, "blockId": 1, "collision": {"is": true, "x": 0, "y": 0, "w": 50, "h": 50}}
+  ]
+}
