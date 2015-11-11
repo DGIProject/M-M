@@ -5,13 +5,19 @@
 var game = null;
 
 function startGame() {
-    game = new Game('gameCanvas', {w: 600, h: 600});
+    game = new Game('gameCanvas', {w: window.innerWidth, h: window.innerHeight});
     game.loadMap('map01.json');
     game.addCar();
 }
 
 window.onload = function() {
     startGame();
+};
+
+window.onresize = function() {
+    console.log('resize window');
+
+    game.resizeCanvas({w: window.innerWidth, h: window.innerHeight});
 };
 
 var tabKeys = [];

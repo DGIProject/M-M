@@ -8,12 +8,7 @@ Game = function(canvasId, size) {
         context: document.getElementById(canvasId).getContext('2d')
     };
 
-    this.canvas.element.width = size.w;
-    this.canvas.element.height = size.h;
-    this.canvas.context.width = size.w;
-    this.canvas.context.height = size.h;
-
-    console.log('ok');
+    this.resizeCanvas(size);
 
     this.size = size;
 
@@ -21,6 +16,13 @@ Game = function(canvasId, size) {
     this.cars = [];
 
     this.refreshInterval = null;
+};
+
+Game.prototype.resizeCanvas = function(size) {
+    this.canvas.element.width = size.w;
+    this.canvas.element.height = size.h;
+    this.canvas.context.width = size.w;
+    this.canvas.context.height = size.h;
 };
 
 Game.prototype.loadMap = function(fileName) {

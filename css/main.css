@@ -1,0 +1,14 @@
+body {
+    margin:0;
+    padding: 0;
+    overflow: hidden;
+}
+
+#gameCanvas {
+    position: absolute;
+}
+
+#toolBar {
+    position: relative;
+    padding: 10px 0 0 10px;
+}

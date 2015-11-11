@@ -3,10 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link href="css/main.css" rel="stylesheet">
 </head>
 <body>
 <canvas id="gameCanvas" style="border: 1px solid #000000;"></canvas>
-<button type="button" onclick="game.startGame();">Start game</button>
+<div id="toolBar">
+    <button type="button" onclick="game.startGame();">Start game</button>
+</div>
 <div id="images" style="display: none;"></div>
 </body>
 <script src="js/class/Game.js"></script>
