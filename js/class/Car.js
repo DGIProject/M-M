@@ -64,12 +64,27 @@ Car.prototype.drawElement = function(context, map) {
 
     context.restore();
 
+    context.beginPath();
+    context.arc(this.x, this.y, 70, 0, 2 * Math.PI, false);
+    context.stroke();
+
     if(this.isGo == CAR_GO.NORMAL)
         this.go();
     else if(this.isGo == CAR_GO.BACK)
         this.goBack();
     else
         this.engineBrake();
+
+    //this.newX = (Math.sin(this.rotation * Math.PI / 180) * (0.7 * this.height)) + this.x;
+    //this.newY = this.y;
+
+    this.newX = (Math.sin(this.rotation * Math.PI / 180) * 70) + this.x;
+    this.newY = -(Math.cos(this.rotation * Math.PI / 180) * 70) + this.y;
+
+    context.beginPath();
+    context.strokeRect(this.newX, this.newY, 5, 5);
+
+    console.log(this.x, this.newX);
 
     map.detectCollision(this.x, (this.y - (0.7 * this.height)));
 };

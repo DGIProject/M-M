@@ -86,7 +86,7 @@ Map.prototype.drawElements = function(context) {
 };
 
 Map.prototype.detectCollision = function(x, y) {
-    console.log(x, y);
+    //console.log(x, y);
 
     /*
     for(var i = 0; i < this.elements.length; i++) {
